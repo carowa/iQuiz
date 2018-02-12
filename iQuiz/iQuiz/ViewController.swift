@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource  {
     @IBOutlet weak var table: UITableView!
     
     let quizTypes : [String] = ["Marvel", "Science", "Mathemathics"]
-    let descriptions : [String] = ["Superheroes in comics and movies from the Marvel franchise", "Physics, Chemistry, and the Natural World", "Calculus, Trigonometry, and Algebra"]
+    let descriptions : [String] = ["Superheroes from Marvel franchise", "Physics, Chemistry, and the Natural World", "Calculus, Trigonometry, and Algebra"]
     let images : [UIImage] = [UIImage(named: "Marvel")!, UIImage(named: "Science")!, UIImage(named: "Math")!]
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,6 +33,18 @@ class ViewController: UIViewController, UITableViewDataSource  {
         cell.cellSubtitle?.text = description
         return cell
     
+    }
+    
+    @IBAction func settings(_ sender: Any) {
+        let alert = UIAlertController(title: "My Alert", message: "Settings go here", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     override func viewDidLoad() {

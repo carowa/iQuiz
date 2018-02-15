@@ -8,23 +8,22 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource  {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     @IBOutlet weak var table: UITableView!
     
     let quizTypes : [String] = ["Marvel", "Science", "Mathemathics"]
     let descriptions : [String] = ["Superheroes from Marvel franchise", "Physics, Chemistry, and the Natural World", "Calculus, Trigonometry, and Algebra"]
     let images : [UIImage] = [UIImage(named: "Marvel")!, UIImage(named: "Science")!, UIImage(named: "Math")!]
+    var selectedIndex : Int = 1
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return quizTypes.count
     }
     
-    var quiz : String = ""
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
-        quiz = quizTypes[index]
+        let quiz = quizTypes[index]
         let image = images[index]
         let description = descriptions[index]
         
@@ -37,6 +36,8 @@ class ViewController: UIViewController, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Lesss parteeee")
+        selectedIndex = indexPath[1]
         performSegue(withIdentifier: "toQuestion", sender: self)
     }
     
@@ -52,16 +53,17 @@ class ViewController: UIViewController, UITableViewDataSource  {
         return 1
     }
     
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? QuestionVC {
-            destination.category = quiz
+            destination.category = quizTypes[selectedIndex]
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        table.dataSource = self
+        self.table.dataSource = self
+        self.table.delegate = self
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 

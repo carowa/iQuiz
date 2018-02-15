@@ -157,13 +157,12 @@
                         <viewLayoutGuide key="safeArea" id="h2M-5A-ePC"/>
                     </view>
                     <connections>
-                        <outlet property="questionOnScreen" destination="HoG-4H-MD7" id="kQY-1H-xf8"/>
                         <outlet property="questionText" destination="SlR-Ru-bP0" id="pTf-YE-oWu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDu-Sd-bhN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="882" y="127"/>
+            <point key="canvasLocation" x="880.79999999999995" y="126.38680659670166"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2KO-zK-4SS">

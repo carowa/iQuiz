@@ -10,14 +10,14 @@ import UIKit
 
 class QuestionVC: UIViewController {
 
-    @IBOutlet weak var questionNumber: UILabel!
+//    @IBOutlet weak var questionNumber: UILabel!
     @IBOutlet weak var questionText: UILabel!
     
     var score : Int = 0
     var currentQuestion = 0
     var category : String = ""
     
-    let quizRepo : quizRepo? = nil
+    let quizzes : quizRepo = quizRepo()
     var questions : [Question]? = nil
     
     
@@ -28,10 +28,13 @@ class QuestionVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        questions = quizRepo?.getQuestions()
+        print(category)
+        print(quizzes)
+        questions = quizzes.getQuestions(category: category)
+        print(questions)
         
-        questionNumber.text = "Q\(currentQuestion)"
-        questionText.text = questions![currentQuestion].questionText
+//        questionNumber.text = "Q\(currentQuestion)"
+//        questionText.text = questions![currentQuestion].questionText
         // Do any additional setup after loading the view, typically from a nib.
     }
 

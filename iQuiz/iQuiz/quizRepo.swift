@@ -1,4 +1,4 @@
-//
+//  August Carow
 //  data.swift
 //  iQuiz
 //
@@ -17,11 +17,11 @@ struct Question {
 
 
 class quizRepo {
-    static let shared = quizRepo
+    static let shared = quizRepo.self
     
     //get by category
-    func getQuestions() -> [Question] {
-        return questionsArray
+    func getQuestions(category: String) -> [Question] {
+        return questionsDict[category]!
     }
     
     func editQuestions() {
@@ -29,8 +29,9 @@ class quizRepo {
     }
     
     private let questionsDict : [String:[Question]] =
-        ["Science" : [Question(questionText: "What is the mass of the sun?", options: ["1", "2", "3", "4"], correctAnswer: 3, guess: ""), Question(questionText: "", options: [], correctAnswer: 3, guess: ""), Question(questionText: "", options: [], correctAnswer: 3, guess: ""), Question(questionText: "", options: [], correctAnswer: 3, guess: "")],
+        ["Science" : [Question(), Question(), Question(), Question()],
          "Math" : [Question(), Question(), Question(), Question()],
-         "Marvel" : [Question(), Question(), Question(), Question()]]
+         "Marvel" : [Question(), Question(), Question(), Question()]
+        ]
 
 }

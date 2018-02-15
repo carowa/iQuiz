@@ -20,10 +20,11 @@ class ViewController: UIViewController, UITableViewDataSource  {
         return quizTypes.count
     }
     
-
+    var quiz : String = ""
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
-        let quiz = quizTypes[index]
+        quiz = quizTypes[index]
         let image = images[index]
         let description = descriptions[index]
         
@@ -33,6 +34,10 @@ class ViewController: UIViewController, UITableViewDataSource  {
         cell.cellSubtitle?.text = description
         return cell
     
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "toQuestion", sender: self)
     }
     
     @IBAction func settings(_ sender: Any) {
@@ -47,6 +52,13 @@ class ViewController: UIViewController, UITableViewDataSource  {
         return 1
     }
     
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? QuestionVC {
+            destination.category = quiz
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         table.dataSource = self

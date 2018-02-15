@@ -8,9 +8,10 @@
 
 import UIKit
 
-class QuestionVC: UIViewController {
+class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-//    @IBOutlet weak var questionNumber: UILabel!
+    @IBOutlet weak var optionsTable: UITableView!
+    
     @IBOutlet weak var questionText: UILabel!
     
     var score : Int = 0
@@ -20,22 +21,46 @@ class QuestionVC: UIViewController {
     let quizzes : quizRepo = quizRepo()
     var questions : [Question]? = nil
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let index = indexPath.row
+        
+        let option = questions![0].options[index]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! TableViewCell
+        
+        cell.cellText?.text = option
+//        cell.text = "party time"
+//        cell.cellTitle.text = "party time"
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destination = segue.destination as? QuestionVC {
+//            destination.category = quizTypes[selectedIndex]
+//        }
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(category)
-        print(quizzes)
-        questions = quizzes.getQuestions(category: category)
-        print(questions)
+        self.optionsTable.dataSource = self
+        self.optionsTable.delegate = self
         
-//        questionNumber.text = "Q\(currentQuestion)"
-//        questionText.text = questions![currentQuestion].questionText
-        // Do any additional setup after loading the view, typically from a nib.
+        questions = quizzes.getQuestions(category: category)
+        //print(questions)
+        //questionNumber.text = "Q\(currentQuestion)"
+        questionText.text = questions![0].questionText
     }
 
 }

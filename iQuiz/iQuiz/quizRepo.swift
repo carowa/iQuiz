@@ -23,11 +23,23 @@ class quizRepo {
         return questionsDict[category]!
     }
     
-    func editQuestions() {
-        //do stuff
+    func addToScore() {
+        score + 1
     }
     
-    private let questionsDict : [String:[Question]] =
+    func getScore() -> Int {
+        return score
+    }
+    
+    func editQuestions(category : String, questionIndex : Int, guess : Int) {
+        print("in edit question before update, value of guess =\(questionsDict[category]![questionIndex].guess)")
+        questionsDict[category]![questionIndex].guess = guess
+                print("in edit question after update, value of guess =\(questionsDict[category]![questionIndex].guess)")
+    }
+    
+    private var score : Int = 0
+    
+    private var questionsDict : [String:[Question]] =
         ["Science" : [Question(questionText: "What is the process that plants go through to synthesize food?", options: ["entropy", "milling", "photosynthesis", "shopping"], correctAnswer: 2, guess: -1)],
          "Math" : [Question(questionText: "What is 2 + 2?", options: ["4", "3", "2", "1"], correctAnswer: 0, guess: -1)],
          "Marvel" : [Question(questionText: "What is Superman's alias?", options: ["Joe Jonas", "Clark Kent", "Billy Bob", "Clark Kint"], correctAnswer: 1, guess: -1)]

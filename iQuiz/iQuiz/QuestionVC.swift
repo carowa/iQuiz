@@ -11,7 +11,6 @@ import UIKit
 class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var optionsTable: UITableView!
-    
     @IBOutlet weak var questionText: UILabel!
     
     var score : Int = 0
@@ -20,6 +19,7 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let quizzes : quizRepo = quizRepo()
     var questions : [Question]? = nil
+    var guessedInt : Int = -1
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
@@ -27,29 +27,33 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
-        
         let option = questions![0].options[index]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! TableViewCell
-        
-        cell.cellText?.text = option
-//        cell.text = "party time"
-//        cell.cellTitle.text = "party time"
-        
+        cell.textLabel?.text = option
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @IBAction func nextSegue(_ sender: Any) {
+        performSegue(withIdentifier: "toAnswer", sender: self)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destination = segue.destination as? QuestionVC {
-//            destination.category = quizTypes[selectedIndex]
-//        }
-//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    //update answer in quizRepo
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        quizzes.editQuestions(category: category, questionIndex: 0, guess: indexPath.row)
+        print("cell clicked on: \(indexPath.row)")
+        guessedInt = indexPath.row
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? AnswerVC {
+            destination.category = category
+            destination.guessInt = guessedInt
+        }
     }
 
     override func viewDidLoad() {

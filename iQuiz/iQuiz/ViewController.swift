@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var table: UITableView!
     
-    let quizTypes : [String] = ["Marvel", "Science", "Mathemathics"]
+    let quizTypes : [String] = ["Marvel", "Science", "Math"]
     let descriptions : [String] = ["Superheroes from Marvel franchise", "Physics, Chemistry, and the Natural World", "Calculus, Trigonometry, and Algebra"]
     let images : [UIImage] = [UIImage(named: "Marvel")!, UIImage(named: "Science")!, UIImage(named: "Math")!]
     var selectedIndex : Int = 1
@@ -36,7 +36,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Lesss parteeee")
         selectedIndex = indexPath[1]
         performSegue(withIdentifier: "toQuestion", sender: self)
     }

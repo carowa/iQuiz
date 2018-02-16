@@ -15,6 +15,8 @@
 		9F9743EF2032230900B751D2 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9743EE2032230900B751D2 /* TableViewCell.swift */; };
 		9FAC148520339D1F00065BFD /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC148420339D1F00065BFD /* QuestionVC.swift */; };
 		9FAC14872034D69D00065BFD /* quizRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC14862034D69D00065BFD /* quizRepo.swift */; };
+		9FAC148920368AEB00065BFD /* AnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC148820368AEB00065BFD /* AnswerVC.swift */; };
+		9FAC148B2036ACC700065BFD /* EndScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC148A2036ACC700065BFD /* EndScreenVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		9F9743EE2032230900B751D2 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		9FAC148420339D1F00065BFD /* QuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionVC.swift; sourceTree = "<group>"; };
 		9FAC14862034D69D00065BFD /* quizRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quizRepo.swift; sourceTree = "<group>"; };
+		9FAC148820368AEB00065BFD /* AnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerVC.swift; sourceTree = "<group>"; };
+		9FAC148A2036ACC700065BFD /* EndScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreenVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				9F9743DC20320D5700B751D2 /* AppDelegate.swift */,
 				9F9743DE20320D5700B751D2 /* ViewController.swift */,
 				9FAC148420339D1F00065BFD /* QuestionVC.swift */,
+				9FAC148820368AEB00065BFD /* AnswerVC.swift */,
+				9FAC148A2036ACC700065BFD /* EndScreenVC.swift */,
 				9FAC14862034D69D00065BFD /* quizRepo.swift */,
 				9F9743E020320D5700B751D2 /* Main.storyboard */,
 				9F9743EE2032230900B751D2 /* TableViewCell.swift */,
@@ -145,6 +151,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FAC148B2036ACC700065BFD /* EndScreenVC.swift in Sources */,
+				9FAC148920368AEB00065BFD /* AnswerVC.swift in Sources */,
 				9FAC148520339D1F00065BFD /* QuestionVC.swift in Sources */,
 				9F9743EF2032230900B751D2 /* TableViewCell.swift in Sources */,
 				9F9743DF20320D5700B751D2 /* ViewController.swift in Sources */,

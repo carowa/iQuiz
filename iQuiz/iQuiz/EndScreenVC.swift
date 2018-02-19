@@ -1,4 +1,4 @@
-//
+//  August Carow
 //  EndScreenVC.swift
 //  iQuiz
 //
@@ -15,10 +15,6 @@ class EndScreenVC: UIViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-    
-    @IBAction func backToBeg(_ sender: Any) {
-//        performSegue(withIdentifier: "backToBeg", sender: self)
     }
     
     @IBOutlet weak var scoreText: UILabel!

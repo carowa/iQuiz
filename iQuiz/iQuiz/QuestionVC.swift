@@ -17,7 +17,7 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var currentQuestion = 0
     var category : String = ""
     
-    let quizzes : quizRepo = quizRepo()
+    var quizzes : quizRepo = quizRepo()
     var questions : [Question]? = nil
     var guessedInt : Int = -1
     
@@ -34,18 +34,15 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     @IBAction func nextSegue(_ sender: Any) {
-        performSegue(withIdentifier: "toAnswer", sender: self)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+        print("let's partyyyy")
+        self.performSegue(withIdentifier: "toAnswer", sender: self)
     }
     
     //update answer in quizRepo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         quizzes.editQuestions(category: category, questionIndex: 0, guess: indexPath.row)
-        print("cell clicked on: \(indexPath.row)")
+        //print("cell clicked on: \(indexPath.row)")
         guessedInt = indexPath.row
     }
     
@@ -62,8 +59,6 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.optionsTable.delegate = self
         
         questions = quizzes.getQuestions(category: category)
-        //print(questions)
-        //questionNumber.text = "Q\(currentQuestion)"
         questionText.text = questions![0].questionText
     }
 

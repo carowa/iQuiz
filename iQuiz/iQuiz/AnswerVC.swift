@@ -22,13 +22,14 @@ class AnswerVC: UIViewController {
         // Initialization code
     }
     
-    @IBAction func toEnd(_ sender: Any) {
+    
+    @IBAction func toEndScreen(_ sender: Any) {
         performSegue(withIdentifier: "toEnd", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let ref = quizzes.getQuestions(category: category)
         let answerIndex = ref[0].correctAnswer
         answerText.text = "The answer was \(ref[0].options[answerIndex])"

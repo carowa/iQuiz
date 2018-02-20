@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var quizzes : [Quiz] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(repoRef.count())
         return repoRef.count()
     }
     
@@ -61,9 +62,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         self.table.dataSource = self
         self.table.delegate = self
-        quizzes = repoRef.getQuizzes()
+        
         repoRef.getjSON()
-
+        quizzes = repoRef.getQuizzes()
+        
     }
 
     override func didReceiveMemoryWarning() {

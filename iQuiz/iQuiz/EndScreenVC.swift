@@ -10,8 +10,8 @@ import UIKit
 
 class EndScreenVC: UIViewController {
 
-    let quizzes : quizRepo = quizRepo()
-    
+    var repoRef : quizRepo = quizRepo.shared
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,8 +21,8 @@ class EndScreenVC: UIViewController {
     @IBOutlet weak var congrats: UILabel!
     
     override func viewDidLoad() {
-        scoreText.text = "You got \(quizzes.getScore()) question correct"
-        if quizzes.getScore() >= 1 {
+        scoreText.text = "You got \(repoRef.getScore()) question correct"
+        if repoRef.getScore() >= 1 {
             congrats.text = "Wow! Amazing job!"
         }
         

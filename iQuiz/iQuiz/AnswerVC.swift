@@ -13,7 +13,7 @@ class AnswerVC: UIViewController {
     @IBOutlet weak var answerText: UILabel!
     @IBOutlet weak var successMessage: UILabel!
     
-    let repoRef : quizRepo = quizRepo()
+    var repoRef : quizRepo = quizRepo.shared
     var category : String = ""
     var guessInt : Int = -1
 

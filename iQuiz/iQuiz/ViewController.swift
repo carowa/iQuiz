@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var table: UITableView!
     
     var selectedIndex : Int = 1
-    var repoRef : quizRepo = quizRepo()
+    var repoRef : quizRepo = quizRepo.shared
     var quizzes : [Quiz] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
+        quizzes = repoRef.getQuizzes()
         let quiz = quizzes[index].title
         let image = UIImage(named: quizzes[index].title)
         let description = quizzes[index].desc
@@ -63,8 +64,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.table.dataSource = self
         self.table.delegate = self
         
-        repoRef.getjSON()
-        quizzes = repoRef.getQuizzes()
+        repoRef.getjSON(tableView: table)
+//        quizzes = repoRef.getQuizzes()
         
     }
 

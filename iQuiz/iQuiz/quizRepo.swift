@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct JSONQuiz : Decodable {
     var data : [Quiz]
@@ -25,7 +26,8 @@ struct Question: Decodable {
 }
 
 class quizRepo {
-    static let shared = quizRepo.self
+//    static let shared = quizRepo.self
+    static let shared = quizRepo()
     
     private var quizzes : JSONQuiz = JSONQuiz(data: [])
     
@@ -71,7 +73,7 @@ class quizRepo {
 //    }
     
     //request and parse JSON
-    func getjSON() {
+    func getjSON(tableView: UITableView) {
         let jsonUrlString : String = "https://tednewardsandbox.site44.com/questions.json"
         
         guard let url:URL = URL(string: jsonUrlString) else { return }
@@ -84,6 +86,9 @@ class quizRepo {
                 do {
                     let array = try JSONDecoder().decode([Quiz].self, from: data)
                       self.quizzes.data = array
+                    DispatchQueue.main.async {
+                        tableView.reloadData()
+                    }
                 }  catch let err {
                     print("Error: couldn't transform into quiz struct", err)
                     return

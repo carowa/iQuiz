@@ -17,7 +17,7 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var currentQuestion = 0
     var category : String = ""
     
-    var quizzes : quizRepo = quizRepo()
+    var quizzes : quizRepo = quizRepo.shared
     var questions : [Question]? = nil
     var guessedInt : Int = -1
     
@@ -59,6 +59,11 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.optionsTable.delegate = self
         
         questions = quizzes.getQuestions(category: category)
+        
+//        print(questions?.count)
+        print(quizzes)
+//        print(quizzes.quizzes.data)
+        print(quizzes.getQuizzes())
         questionText.text = questions![0].text
     }
 

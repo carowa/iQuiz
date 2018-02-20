@@ -8,14 +8,7 @@
 
 import Foundation
 
-//struct Question {
-//    var questionText : String = ""
-//    var options : [String] = [""]
-//    var correctAnswer : Int = 0
-//    var guess : Int = -1
-//}
-
-struct jsonQuiz : Decodable {
+struct JSONQuiz : Decodable {
     var data : [Quiz]
 }
 
@@ -29,23 +22,27 @@ struct Question: Decodable {
     var text : String = ""
     var answer : String = ""
     var answers : [String] = [""]
-    //var guess : Int? = -1
 }
 
 class quizRepo {
     static let shared = quizRepo.self
+    
+    private var quizzes : JSONQuiz = JSONQuiz(data: [])
+    
     private var score : Int = 0
-
-    //note: took out guess field to make it compile
-    private var questionsDict : [String:[Question]] =
-        ["Science" : [Question(text: "What is the process that plants go through to synthesize food?", answer: "2", answers: ["entropy", "milling", "photosynthesis", "shopping"])],
-         "Math" : [Question(text: "What is 2 + 2?", answer: "0", answers: ["4", "3", "2", "1"])],
-         "Marvel" : [Question(text: "What is Superman's alias?", answer: "1", answers: ["Joe Jonas", "Clark Kent", "Billy Bob", "Clark Kint"])]
-    ]
     
     //get by category
     func getQuestions(category: String) -> [Question] {
-        return questionsDict[category]!
+        for quiz in quizzes.data {
+            if quiz.title == category {
+                return quiz.questions
+            }
+        }
+        return []
+    }
+    
+    func getQuizzes() -> [Quiz] {
+        return quizzes.data
     }
     
     //add one point to the score
@@ -58,12 +55,20 @@ class quizRepo {
         return score
     }
     
-    //edit the question given the category, question, and guess
-    func editQuestions(category : String, questionIndex : Int, guess : Int) {
-        print("in edit question before update, value of guess =\(questionsDict[category]![questionIndex].guess)")
-        questionsDict[category]![questionIndex].guess = guess
-                print("in edit question after update, value of guess =\(questionsDict[category]![questionIndex].guess)")
+    //return the number of quizzes
+    func count() -> Int {
+        return quizzes.data.count
     }
+    
+    //edit the question given the category, question, and guess
+//    func editQuestions(category : String, questionIndex : Int, guess: Int) {
+//        var array = self.getQuestions(category: category)
+//        for i in 0...array.count {
+//            if i == questionIndex {
+//                array[i].guess = guess
+//            }
+//        }
+//    }
     
     //request and parse JSON
     func getjSON() {
@@ -77,16 +82,10 @@ class quizRepo {
                 return
             }
                 do {
-                    //print(String(data: data, encoding: String.Encoding.utf8))
-                    //print(data)
-                    var array = try JSONDecoder().decode([Quiz].self, from: data)
-//                      self.jsonQuiz.append(quiz)
-//                    for quiz in array.data {
-//                        array.data.append(quiz)
-//                    }
-                    
+                    let array = try JSONDecoder().decode([Quiz].self, from: data)
+                      self.quizzes.data = array
                 }  catch let err {
-                    print("Error: couldn'td transform into quiz struct", err)
+                    print("Error: couldn't transform into quiz struct", err)
                     return
                 }
 

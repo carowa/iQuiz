@@ -12,26 +12,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var table: UITableView!
     
-//    let quizTypes : [String] = ["Marvel", "Science", "Math"]
-//    let descriptions : [String] = ["Superheroes from Marvel franchise", "Physics, Chemistry, and the Natural World", "Calculus, Trigonometry, and Algebra"]
-//    let images : [UIImage] = [UIImage(named: "Marvel")!, UIImage(named: "Science")!, UIImage(named: "Math")!]
     var selectedIndex : Int = 1
-    var quizzes : quizRepo = quizRepo()
+    var repoRef : quizRepo = quizRepo()
+    var quizzes : [Quiz] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return quizTypes.count
-        return 1
+        return repoRef.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
-        //let quiz = quizTypes[index]
-        //let image = images[index]
-        //let description = descriptions[index]
+        let quiz = quizzes[index].title
+        let image = UIImage(named: quizzes[index].title)
+        let description = quizzes[index].desc
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! TableViewCell
-//        cell.cellImage?.image = image
-//        cell.cellTitle?.text = quiz
+        cell.cellImage?.image = image
+        cell.cellTitle?.text = quiz
         cell.cellSubtitle?.text = description
         return cell
     
@@ -56,7 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? QuestionVC {
-            //destination.category = quizTypes[selectedIndex]
+            destination.category = quizzes[selectedIndex].title
         }
     }
 
@@ -64,7 +61,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         self.table.dataSource = self
         self.table.delegate = self
-        quizzes.getjSON()
+        quizzes = repoRef.getQuizzes()
+        repoRef.getjSON()
+
     }
 
     override func didReceiveMemoryWarning() {

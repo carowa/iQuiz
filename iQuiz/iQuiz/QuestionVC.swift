@@ -26,6 +26,7 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("lets partyyyyy")
         let index = indexPath.row
         let option = questions![0].answers[index]
         let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! TableViewCell
@@ -40,8 +41,7 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //update answer in quizRepo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        quizzes.editQuestions(category: category, questionIndex: 0, guess: indexPath.row)
+        //quizzes.editQuestions(category: category, questionIndex: 0, guess: indexPath.row)
         //print("cell clicked on: \(indexPath.row)")
         guessedInt = indexPath.row
     }

@@ -13,15 +13,14 @@ class AnswerVC: UIViewController {
     @IBOutlet weak var answerText: UILabel!
     @IBOutlet weak var successMessage: UILabel!
     
-    let quizzes : quizRepo = quizRepo()
+    let repoRef : quizRepo = quizRepo()
     var category : String = ""
     var guessInt : Int = -1
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
     
     @IBAction func toEndScreen(_ sender: Any) {
         performSegue(withIdentifier: "toEnd", sender: self)
@@ -30,16 +29,19 @@ class AnswerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let ref = quizzes.getQuestions(category: category)
-        let answerIndex = ref[0].answer
-        answerText.text = "The answer was \(ref[0].answers[answerIndex])"
+        let question = repoRef.getQuestions(category: category)[0]
+        let answerIndex = Int(question.answer)
+        
+        answerText.text = "The answer was \(question.answers[answerIndex!])"
+        
         print("guess: \(guessInt)")
-        print ("correc answer: \(ref[0].answer)")
-        if guessInt != ref[0].answer {
-            successMessage.text = "You're wrong ):"
+        print ("correct answer: \(question.answer)")
+        
+        if String(guessInt) != question.answer {
+            successMessage.text = "Uh oh, your guess was incorrect ):"
         } else {
-            successMessage.text = "You're correct!"
-            quizzes.addToScore()
+            successMessage.text = "Yay! You're right!"
+            repoRef.addToScore()
         }
      }
 

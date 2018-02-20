@@ -15,6 +15,10 @@ import Foundation
 //    var guess : Int = -1
 //}
 
+struct jsonQuiz : Decodable {
+    var data : [Quiz]
+}
+
 struct Quiz: Decodable {
     var title : String = ""
     var desc : String = ""
@@ -23,13 +27,21 @@ struct Quiz: Decodable {
 
 struct Question: Decodable {
     var text : String = ""
-    var answer : Int = 0
+    var answer : String = ""
     var answers : [String] = [""]
-    var guess : Int = -1
+    //var guess : Int? = -1
 }
 
 class quizRepo {
     static let shared = quizRepo.self
+    private var score : Int = 0
+
+    //note: took out guess field to make it compile
+    private var questionsDict : [String:[Question]] =
+        ["Science" : [Question(text: "What is the process that plants go through to synthesize food?", answer: "2", answers: ["entropy", "milling", "photosynthesis", "shopping"])],
+         "Math" : [Question(text: "What is 2 + 2?", answer: "0", answers: ["4", "3", "2", "1"])],
+         "Marvel" : [Question(text: "What is Superman's alias?", answer: "1", answers: ["Joe Jonas", "Clark Kent", "Billy Bob", "Clark Kint"])]
+    ]
     
     //get by category
     func getQuestions(category: String) -> [Question] {
@@ -53,25 +65,31 @@ class quizRepo {
                 print("in edit question after update, value of guess =\(questionsDict[category]![questionIndex].guess)")
     }
     
-    private var score : Int = 0
-    
+    //request and parse JSON
     func getjSON() {
         let jsonUrlString : String = "https://tednewardsandbox.site44.com/questions.json"
         
         guard let url:URL = URL(string: jsonUrlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, reponse, err) in
-            guard let data = data else { return }
-            let dataAsString = String(data: data, encoding: .utf8)
-            
+            guard let data = data else {
+                print("Error: no data")
+                return
+            }
+                do {
+                    //print(String(data: data, encoding: String.Encoding.utf8))
+                    //print(data)
+                    var array = try JSONDecoder().decode([Quiz].self, from: data)
+//                      self.jsonQuiz.append(quiz)
+//                    for quiz in array.data {
+//                        array.data.append(quiz)
+//                    }
+                    
+                }  catch let err {
+                    print("Error: couldn'td transform into quiz struct", err)
+                    return
+                }
+
             }.resume()
     }
-    
-    private var jsonQuiz : [Quiz] = []
-    
-    private var questionsDict : [String:[Question]] =
-        ["Science" : [Question(questionText: "What is the process that plants go through to synthesize food?", options: ["entropy", "milling", "photosynthesis", "shopping"], correctAnswer: 2, guess: -1)],
-         "Math" : [Question(questionText: "What is 2 + 2?", options: ["4", "3", "2", "1"], correctAnswer: 0, guess: -1)],
-         "Marvel" : [Question(questionText: "What is Superman's alias?", options: ["Joe Jonas", "Clark Kent", "Billy Bob", "Clark Kint"], correctAnswer: 1, guess: -1)]
-        ]
 }

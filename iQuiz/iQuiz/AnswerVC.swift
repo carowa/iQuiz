@@ -31,11 +31,11 @@ class AnswerVC: UIViewController {
         super.viewDidLoad()
         
         let ref = quizzes.getQuestions(category: category)
-        let answerIndex = ref[0].correctAnswer
-        answerText.text = "The answer was \(ref[0].options[answerIndex])"
+        let answerIndex = ref[0].answer
+        answerText.text = "The answer was \(ref[0].answers[answerIndex])"
         print("guess: \(guessInt)")
-        print ("correc answer: \(ref[0].correctAnswer)")
-        if guessInt != ref[0].correctAnswer {
+        print ("correc answer: \(ref[0].answer)")
+        if guessInt != ref[0].answer {
             successMessage.text = "You're wrong ):"
         } else {
             successMessage.text = "You're correct!"

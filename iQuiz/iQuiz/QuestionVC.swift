@@ -27,7 +27,7 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
-        let option = questions![0].options[index]
+        let option = questions![0].answers[index]
         let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! TableViewCell
         cell.textLabel?.text = option
         return cell
@@ -59,7 +59,7 @@ class QuestionVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.optionsTable.delegate = self
         
         questions = quizzes.getQuestions(category: category)
-        questionText.text = questions![0].questionText
+        questionText.text = questions![0].text
     }
 
 }
